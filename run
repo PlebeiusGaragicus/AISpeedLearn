@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# This turns the PDFs into text files
+# ./process_materials
+
+source venv/bin/activate
+
+python3 -m MagicAICode
