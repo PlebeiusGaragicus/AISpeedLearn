@@ -4,5 +4,5 @@ __pycache__/
 .DS_Store
 
 /study_materials/*.txt
-/study_materials/*.pdf
+/study_materials/raw_documents/*.pdf
 /study_materials/processed/*.txt
