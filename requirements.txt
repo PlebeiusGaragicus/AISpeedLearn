@@ -1,3 +1,5 @@
 wheel
 torch
 transformers
+openai
+python-dotenv

@@ -2,12 +2,14 @@ import os
 import re
 from typing import List
 
+import dotenv
+
 from MagicAICode.helpers import *
-from . import summarize
+from MagicAICode import summarize
+from MagicAICode.magic import setup_magic, run_prompt
 
 
 def process_text(file_path: str) -> List[str]:
-    print(file_path)
     with open(file_path, 'r') as file:
         data = file.read()
         
@@ -31,28 +33,18 @@ def process_text(file_path: str) -> List[str]:
             sections[-1] = "\n".join(lines[:idx-2])
         except StopIteration:  # "Portland Fire & Rescue" line not found
             pass
-        
-        for section in sections:
-            print(f"{colored('-->', Color.YELLOW)} {section}", end='\n\n')
     
-    print(file_path)
+    return sections
 
 
 
-def process_nonstandard(file_path: str) -> None:
-    print("non-standard processing: ", file_path)
-
+def process_nonstandard(file_path: str) -> List[str]:
     with open(file_path, 'r') as file:
         data = file.read()
         sections = data.split('\n\n\n')
         sections = [section.strip() for section in sections]
 
-    for section in sections:
-        print(f"{colored('-->', Color.YELLOW)} {section}", end='\n\n')
-
-    print(file_path)
-
-
+    return sections
 
 
 def process_directory(input_dir: str) -> List:
@@ -62,11 +54,26 @@ def process_directory(input_dir: str) -> List:
         full_path = os.path.join(input_dir, txt_file)
 
         try:
-            process_text(full_path)
+            sections = process_text(full_path)
         except IndexError:
-            process_nonstandard(full_path)
-        input("PRESS ENTER") # pause for ENTER
+            sections = process_nonstandard(full_path)
+        
+        # PROCESS SECTIONS
+        for section in sections:
+            print(f"{colored('-->', Color.YELLOW)} {section}", end='\n\n')
+
+            prompt = {
+                "snippet": section,
+                "instruction": "Create study flashcards from the given text snippet. Provide no extra dialogue - only Q/A pairs. Answers should be short (1-6) words. Create multiple flashcards as needed for longer sentences. Create as many flashcards as possible from provided snippet."
+            }
+
+            ret = run_prompt(prompt.__str__())
+            print(ret)
+
+            input("PRESS ENTER") # pause for ENTER
 
 
 if __name__ == "__main__":
+    dotenv.load_dotenv()
+    setup_magic()
     process_directory('./study_materials/processed')
