@@ -1,11 +1,18 @@
 #!/bin/bash
 
+#################################
+# This utility converts all PDFs in the input directory
+# to text files in the output directory.
+#
+#
+#################################
+
 # Location of the 'pdftotext' tool
 PDFTOTEXT_PATH=/opt/homebrew/opt/poppler-qt5/bin/pdftotext
 
 # Input and output directories
-INPUT_DIR=./study_materials
-OUTPUT_DIR=./study_materials/processed
+INPUT_DIR=../study_materials
+OUTPUT_DIR=../study_materials/processed
 
 # Ensure that the output directory exists
 mkdir -p "$OUTPUT_DIR"

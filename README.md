@@ -4,24 +4,23 @@ My intent with this project is to help teach myself how to run local AI models i
 
 The goal of this project is to create flash cards, quizzes and other useful study material based on a given corpus of material (PDFs, etc)
 
-# Design workflow
+ * [Installation](./docs/INSTALL.md)
+ * [Use workflow](./docs/workflow.md)
+ * Examples
+ * Plugins (to help extract source documents in other formats)
+ 
+ # References
 
-1. Process documents into text
+  - https://platform.openai.com
 
-2. Run AI models to process into 'study' format
+  Fine tuning - https://platform.openai.com/docs/api-reference/fine-tunes
 
-3. Run self-hosted web app to study these materials
+  pipelines - https://huggingface.co/docs/transformers/main_classes/pipelines
 
-4. Profit...
+  PrivateGPT forks
 
-# Installation and Use
+   - https://github.com/smartswords/privateGPT
+   - https://github.com/SamurAIGPT/privateGPT
+   - https://github.com/imartinez/privateGPT
 
-`poppler-qt5` is a Linux (Unix?) utility that we will use to process the PDFs into text documents
-
-```sh
-# on linux:
-sudo apt-get install poppler-qt5
-
-# on mac:
-brew install poppler-qt5
-```
+   

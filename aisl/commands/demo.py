@@ -2,12 +2,8 @@ import os
 import re
 from typing import List
 
-import dotenv
-
-from MagicAICode.helpers import *
-from MagicAICode import summarize
-from MagicAICode.magic import setup_magic, run_prompt
-
+from aisl.helpers import *
+from aisl.ai_calls import run_prompt, setup_magic
 
 def process_text(file_path: str) -> List[str]:
     with open(file_path, 'r') as file:
@@ -73,7 +69,8 @@ def process_directory(input_dir: str) -> List:
             input("PRESS ENTER") # pause for ENTER
 
 
-if __name__ == "__main__":
-    dotenv.load_dotenv()
-    setup_magic()
-    process_directory('./study_materials/processed')
+
+def demo(args):
+    setup_magic() # This command will eventually make calls to the OpenAI API
+
+    process_directory("./dataset/extracted")

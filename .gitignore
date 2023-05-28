@@ -4,7 +4,7 @@ __pycache__/
 .DS_Store
 .env
 
+*.egg-info
 
-/study_materials/*.txt
-/study_materials/raw_documents/*.pdf
-/study_materials/processed/*.txt
+*.pdf
+*.txt
