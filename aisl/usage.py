@@ -3,7 +3,10 @@ USAGE = '''
 Usage:
   aisl version
   aisl demo
+  aisl popquiz
 '''
+
+# popquiz - will ask for 
 
   # aisl extract [ --all | <file> ]
   # aisl summarize [ --all | <file> ]

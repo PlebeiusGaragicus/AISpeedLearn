@@ -10,6 +10,7 @@ from aisl.usage import USAGE
 from aisl.version import VERSION
 
 from aisl.commands.demo import demo
+from aisl.commands.popquiz import popquiz
 
 
 def main():
@@ -33,3 +34,5 @@ def main():
         print(f"aisl {VERSION}")
     elif args.get("demo", False):
         demo(args)
+    elif args.get("popquiz", False):
+        popquiz(args)

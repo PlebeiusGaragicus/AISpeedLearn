@@ -4,3 +4,4 @@ transformers
 openai
 python-dotenv
 docopt
+pywebio

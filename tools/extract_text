@@ -10,9 +10,11 @@
 # Location of the 'pdftotext' tool
 PDFTOTEXT_PATH=/opt/homebrew/opt/poppler-qt5/bin/pdftotext
 
+PROJECT_DIR=$(dirname "$0")/..
+
 # Input and output directories
-INPUT_DIR=../study_materials
-OUTPUT_DIR=../study_materials/processed
+INPUT_DIR=$PROJECT_DIR/dataset/source_documents
+OUTPUT_DIR=$PROJECT_DIR/dataset/extracted
 
 # Ensure that the output directory exists
 mkdir -p "$OUTPUT_DIR"

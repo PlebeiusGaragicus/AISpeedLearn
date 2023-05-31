@@ -18,6 +18,7 @@ setup(
         'openai',
         'python-dotenv',
         'docopt',
+        'pywebio',
     ],
     classifiers=[
         # Choose classifiers from https://pypi.org/classifiers/

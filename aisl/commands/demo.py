@@ -5,6 +5,43 @@ from typing import List
 from aisl.helpers import *
 from aisl.ai_calls import run_prompt, setup_magic
 
+
+# 11111
+# INSTRUCTION = """
+# You are a college professor working on test-prep.
+# The goal is to create study flashcards from the given document snippet.
+# Answers should be short (1-6) words.
+# Provide no extra dialogue - only Q/A pairs.
+# References to "this document/guideline" should be reworded with the document title, as needed.
+# Create multiple flashcards as needed for longer sentences.
+# """
+
+# 2222
+# INSTRUCTION = """
+# Create study flashcards from the given text snippet.
+# Create multiple flashcards as needed for longer sentences.
+# Create as many flashcards as possible from provided snippet.
+
+# Provide no extra dialogue and follow this format:
+# Q: <question>
+# A: <answer> (1-6 words)
+# Referencee: Sentence that question/answer came from
+# """
+
+# 3333
+INSTRUCTION = """
+You are an AI assistant tasked with creating Q/A flashcards from the document snippet.
+
+Instructions:
+
+Read the document snippet carefully.
+Answers should be simple and short (1-5 words).
+Create multiple flashcards as needed for longer sentences.
+Administrative details or references to "this guideline should be ignored.
+Provide no extra dialogue and follow this format: {"Question": "", "Answer": "", "SourceSentence": ""}
+"""
+
+
 def process_text(file_path: str) -> List[str]:
     with open(file_path, 'r') as file:
         data = file.read()
@@ -59,14 +96,22 @@ def process_directory(input_dir: str) -> List:
             print(f"{colored('-->', Color.YELLOW)} {section}", end='\n\n')
 
             prompt = {
-                "snippet": section,
-                "instruction": "Create study flashcards from the given text snippet. Provide no extra dialogue - only Q/A pairs. Answers should be short (1-6) words. Create multiple flashcards as needed for longer sentences. Create as many flashcards as possible from provided snippet."
+                "Document Title": txt_file.split('/')[-1].replace('.pdf', ''),
+                "Document snippet": section,
+                "instructions": INSTRUCTION,
             }
+
+            print(prompt)
 
             ret = run_prompt(prompt.__str__())
             print(ret)
 
-            input("PRESS ENTER") # pause for ENTER
+            # TODO can't assume input file is PDF
+            with open(f"./dataset/study_materials/{txt_file.replace('.pdf', 'txt')}.txt", 'a') as file:
+                file.write("\n\n")
+                file.write(ret)
+
+            # input("PRESS ENTER") # pause for ENTER
 
 
 
