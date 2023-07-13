@@ -1,9 +1,0 @@
-{
-    "documents": [
-        {
-            "sectionTitle": "",
-            "sectionText": ""
-        }
-    ],
-    "instruction": "Create study flashcards from the given text document. Provide no extra dialogue - only Q/A pairs. Answers should be short (1-6) words. Create multiple flashcards as needed for longer sentences."
-}

@@ -1,0 +1,49 @@
+#!/bin/bash
+
+#################################
+# This utility converts all PDFs in the input directory
+# to text files in the output directory.
+#
+#
+#################################
+
+# Location of the 'pdftotext' tool
+# PDFTOTEXT_PATH=/opt/homebrew/opt/poppler-qt5/bin/pdftotext
+PDFTOTEXT_PATH=/opt/homebrew/bin/pdftotext
+
+INPUT_DIR=$PROJECT_DIR/dataset/source_documents
+# INPUT_DIR=$1
+
+PROJECT_DIR=$(dirname "$0")/..
+OUTPUT_DIR=$PROJECT_DIR/dataset/extracted
+
+# Ensure that the output directory exists
+mkdir -p "$OUTPUT_DIR"
+
+# Loop over all PDF files in the input directory
+for pdf_file in "$INPUT_DIR"/*.pdf
+do
+    echo -e "\nprocessing '$pdf_file'"
+
+    # Skip if file name contains "attachment"
+    if [[ $(basename "$pdf_file") == *attachment* ]]; then
+        echo "we don't process attachments... skipping"
+        continue
+    fi
+
+    base_name=$(basename "$pdf_file" .pdf)
+    "$PDFTOTEXT_PATH" -layout -nopgbrk "$pdf_file" "$OUTPUT_DIR/$base_name.txt"
+    
+    # remove unwanted lines
+    # sed -i '/PF&R.*Page [0-9]* of [0-9]*/d' "$OUTPUT_DIR/$base_name.txt"
+
+    # Detect the version of sed (GNU or BSD)
+    # TODO: untested
+    if sed --version 2>&1 | grep -q GNU; then
+        # This is GNU sed
+        sed -i '/PF&R.*Page [0-9]* of [0-9]*/d' "$OUTPUT_DIR/$base_name.txt"
+    else
+        # This is BSD sed
+        sed -i '' '/PF&R.*Page [0-9]* of [0-9]*/d' "$OUTPUT_DIR/$base_name.txt"
+    fi
+done
